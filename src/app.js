@@ -14,44 +14,44 @@ const PORT = 8880
 app.use(cors())
 
 const typeDefs = `
-type Company {
-  id:Int
-  name:String
-  users:[User]
-}
-type User {
-  id:Int
-  firstName:String
-  lastName:String
-  fullName:String
-  email:String
-  company:Company
-}
-input CreateUserInput {
-  id: Int
-  firstName: String
-  lastName: String
-  email: String
-}
-input CreateCompanyInput {
-  id: Int
-  name: String
-  userId: [Int]
-}
-type Mutation {
-  createUser(createUserInput: CreateUserInput) : User
-  createCompany(createCompanyInput: CreateCompanyInput) : Company
-}
-type Query {
-  something: String
-  user(id: Int) : User
-  users : [User]
-  companies: [Company]
-}
-schema {
-  query: Query
-  mutation: Mutation
-}
+    type Company {
+    id:Int
+    name:String
+    users:[User]
+    }
+    type User {
+    id:Int
+    firstName:String
+    lastName:String
+    fullName:String
+    email:String
+    company:Company
+    }
+    input CreateUserInput {
+    id: Int
+    firstName: String
+    lastName: String
+    email: String
+    }
+    input CreateCompanyInput {
+    id: Int
+    name: String
+    userId: [Int]
+    }
+    type Mutation {
+    createUser(createUserInput: CreateUserInput) : User
+    createCompany(createCompanyInput: CreateCompanyInput) : Company
+    }
+    type Query {
+    something: String
+    user(id: Int) : User
+    users : [User]
+    companies: [Company]
+    }
+    schema {
+    query: Query
+    mutation: Mutation
+    }
   `
 
 const resolvers = {
