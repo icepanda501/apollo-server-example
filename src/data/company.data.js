@@ -18,7 +18,7 @@ export const addCompany = (company)=>{
     return company
 }
 
-export const getUserById = (id)=>{
-    const company = companies.filter(company=>company.id===id)
+export const getCompanyByUser = (userId)=>{
+    const company = companies.filter(company=> company.userId.indexOf(userId) >= 0)
     return company.length > 0 ? company[0] : null
 }

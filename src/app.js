@@ -3,7 +3,7 @@ import { makeExecutableSchema } from 'graphql-tools'
 import bodyParser from 'body-parser';
 import express from 'express'
 import { getUserById , addUsers , getUsers} from './data/user.data'
-import { getCompany , addCompany } from './data/company.data'
+import { getCompany , addCompany , getCompanyByUser } from './data/company.data'
 
 import cors from 'cors'
 
@@ -83,8 +83,8 @@ const resolvers = {
         }
     },
     User: {
-        company(){
-            return {}
+        company(user){
+            return getCompanyByUser(user.id)
         }
     }
 }

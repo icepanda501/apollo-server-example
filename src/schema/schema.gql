@@ -12,6 +12,7 @@
     email:String
     company:Company
   }
+
   input CreateUserInput {
     id: Int
     firstName: String
@@ -23,6 +24,7 @@
     name: String
     userId: [Int]
   }
+  
   type Mutation {
     createUser(createUserInput: CreateUserInput) : User
     createCompany(createCompanyInput: CreateCompanyInput) : Company
