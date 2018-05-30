@@ -1,35 +1,22 @@
-const users = [{
-    id:1,
-    firstName:"Cherprang",
-    lastName:"Areekul",
-    fullName: "Cherprang Areekul",
-    email:"cherprang@bnk.com",
-},{
-    id:2,
-    firstName:"Praewa",
-    lastName:"Suthamphong",
-    fullName: "Praewa Suthamphong",
-    email:"Praewa@bnk.com",
-},{
-    id:3,
-    firstName:"Chadatan",
-    lastName:"Dankul",
-    fullName: "Chadatan Dankul",
-    email:"Chadatan@sweat.com",
-}]
+import db from './knex'
+import humps from 'humps'
 
-
-
-export const getUsers = ()=>{
-    return users
-}
-
-export const addUsers = (user)=>{
-    user.fullName = user.firstName + " " + user.lastName
-    users.push(user)
-    return user
-}
-
-export const getUserById = (id)=>{
-    return users.filter(user=>user.id===id)[0]
+export default {
+    async getUsers(){
+        const users = await db.select().from('users')
+        return humps.camelizeKeys(users)
+    },
+    async getUserById(id) {
+        const user = await db('users').where('id', id).first()
+        return humps.camelizeKeys(user)
+    },
+    async getUsersByCompanyId(companyId) {
+        const users = await db('users').where('company_id',companyId)
+        return humps.camelizeKeys(users)
+    },
+    async addUser(inputCreate){
+        const userId = await db('users').insert(humps.decamelizeKeys(inputCreate))
+        const user = await this.getUserById(userId[0])
+        return humps.camelizeKeys(user)
+    }
 }

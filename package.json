@@ -22,7 +22,10 @@
     "express": "^4.16.3",
     "graphql": "^0.13.2",
     "graphql-binding": "^2.0.0",
-    "graphql-tools": "^3.0.0"
+    "graphql-tools": "^3.0.0",
+    "humps": "^2.0.1",
+    "knex": "^0.14.6",
+    "mysql2": "^1.5.3"
   },
   "devDependencies": {
     "nodemon": "^1.17.4"

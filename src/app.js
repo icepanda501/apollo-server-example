@@ -2,8 +2,8 @@ import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools'
 import bodyParser from 'body-parser';
 import express from 'express'
-import { getUserById , addUsers , getUsers} from './data/user.data'
-import { getCompany , addCompany , getCompanyByUser } from './data/company.data'
+import userData from './data/user.data'
+import companyData from './data/company.data'
 
 import cors from 'cors'
 
@@ -57,34 +57,37 @@ const typeDefs = `
 const resolvers = {
     Query: {
         user(root,{id}){
-            return getUserById(id)
+            return userData.getUserById(id)
         },
         users(){
-            return getUsers()
+            return userData.getUsers()
         },
         companies(){
-            return getCompany()
+            return companyData.getCompanies()
         }
     },
     Mutation: {
         createUser(root,{createUserInput}) {
-            const user = addUsers(createUserInput)
+            const user = userData.addUser(createUserInput)
             return user
         },
         createCompany(root,{createCompanyInput}) {
-            const company = addCompany(createCompanyInput)
-            console.log(company)
+            const company = companyData.addCompany(createCompanyInput)
             return company
         }
     },
     Company: {
         users(company){
-            return company.userId.map(userId=> getUserById(userId))  
+            return userData.getUsersByCompanyId(company.id)  
         }
     },
     User: {
+        fullName(user){
+            console.log(user)
+            return `${user.firstName} ${user.lastName}`
+        },     
         company(user){
-            return getCompanyByUser(user.id)
+            return companyData.getCompanyById(user.companyId)
         }
     }
 }
